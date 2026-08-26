@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "build": "node build.mjs && node seo-extra.mjs && node validate.mjs",
+    "build": "node build.mjs && node seo-extra.mjs && node seo-wave2.mjs && node validate.mjs",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {

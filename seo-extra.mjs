@@ -28,3 +28,5 @@ const smPath=join(out,'sitemap.xml');let sitemap=await readFile(smPath,'utf8');c
 
 const homePath=join(out,'index.html');let home=await readFile(homePath,'utf8');const cards=pages.map((p,i)=>`<div class="card"><div class="card-top"><span class="card-icon">${['18K','DEC','TMT','903','DUE','EX','OSC','OOS'][i]}</span><span class="card-number">${String(i+7).padStart(2,'0')}</span></div><div class="eyebrow">${p.category}</div><h3>${p.title}</h3><p>${p.desc}</p><a href="/${p.slug}/">Read the guide →</a></div>`).join('');const section=`<section class="section"><div class="section-kicker">Continue learning</div><h2>More carrier-focused NY HUT guides</h2><p class="lead">Detailed explanations for weight rules, forms, credentials, filing deadlines, exemptions, OSCAR, and out-of-state operations.</p><div class="grid">${cards}</div></section>`;home=home.replace('<section class="conversion">',`${section}<section class="conversion">`);await writeFile(homePath,home);
 console.log(`Added ${pages.length} SEO authority pages.`);
+
+export { renderArticle };
