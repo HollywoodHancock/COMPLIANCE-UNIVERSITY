@@ -68,3 +68,5 @@ home = home.replace('<strong>30</strong><span>Guides and decision tools</span>',
 await writeFile(homePath, home);
 
 console.log('Added NY HUT gross-weight calculator.');
+
+export { renderArticle };
