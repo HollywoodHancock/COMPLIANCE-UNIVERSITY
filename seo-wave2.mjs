@@ -40,3 +40,5 @@ home = home.replace('<strong>18</strong><span>Focused authority pages</span>', '
 await writeFile(homePath, home);
 
 console.log(`Added ${pages.length} second-wave authority pages.`);
+
+export { renderArticle };
