@@ -81,3 +81,5 @@ home = home.replace('<strong>29</strong><span>Guides and decision tools</span>',
 await writeFile(homePath, home);
 
 console.log('Added NY HUT filing deadline calculator.');
+
+export { renderArticle };
