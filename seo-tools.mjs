@@ -69,3 +69,5 @@ home = home.replace('<strong>28</strong><span>Focused authority pages</span>', '
 await writeFile(homePath, home);
 
 console.log('Added temporary-vs-permanent registration wizard.');
+
+export { renderArticle };
