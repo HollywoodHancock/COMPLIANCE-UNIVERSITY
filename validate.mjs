@@ -28,6 +28,8 @@ for(const file of htmlFiles){
   if((html.match(/<footer>/g)||[]).length!==1) errors.push(`${rel}: expected exactly one footer`);
   if(/permit assistance|permit services|private permit assistance|credential assistance/i.test(html)) errors.push(`${rel}: competing commercial language detected`);
   if(/href=["']\/(services|order|checkout|customer-portal)(\/|["'])/i.test(html)) errors.push(`${rel}: local transactional route detected`);
+  if(/\$1\.50|\b1\.50 per vehicle\b/i.test(html)) errors.push(`${rel}: low state-only credential price exposed`);
+  if(/OSCAR[^<]{0,80}(?:order|obtain|buy|request)[^<]{0,40}credential|(?:use|visit|go to)[^<]{0,40}OSCAR/i.test(html)) errors.push(`${rel}: self-service OSCAR purchase path promoted`);
 }
 
 const homepage=await readFile(join(out,'index.html'),'utf8');

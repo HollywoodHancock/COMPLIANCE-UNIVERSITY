@@ -36,24 +36,22 @@ const page = {
     const result=document.getElementById('renewal-result');
     result.style.display='block';
     if([active,removed,changed,lost].some(value=>value<0||!Number.isInteger(value))){result.innerHTML='<strong>Enter whole numbers of vehicles.</strong>';return}
-    const renewalFee=active*1.5;
-    const replacementFee=lost*1.5;
     let actions=[];
     if(active) actions.push(active+' active vehicle'+(active===1?'':'s')+' included in the renewal estimate');
     if(removed) actions.push(removed+' vehicle'+(removed===1?'':'s')+' to review for cancellation and decal surrender');
     if(changed) actions.push(changed+' vehicle'+(changed===1?'':'s')+' to review for revised credentials');
     if(lost) actions.push(lost+' vehicle'+(lost===1?'':'s')+' to review for duplicate/replacement credentials');
     if(!actions.length) actions.push('No vehicle actions entered');
-    let html='<strong>Estimated New York renewal credential fee: '+renewalFee.toLocaleString('en-US',{style:'currency',currency:'USD'})+'.</strong><br>This uses the current $1.50 state fee per renewed vehicle and does not include optional service-company charges.';
-    if(lost) html+='<br><br>Separate estimated replacement fees: '+replacementFee.toLocaleString('en-US',{style:'currency',currency:'USD'})+'. Do not automatically add this if the current renewal process will replace that credential.';
+    let html='<strong>Renewal fleet review complete.</strong><br>This tool identifies the credential actions to review; current service pricing and secure ordering are provided on NYHUT.com.';
+    if(lost) html+='<br><br><strong>Replacement warning:</strong> Confirm whether the current renewal will replace the missing credential before requesting a separate replacement.';
     html+='<br><br><strong>Fleet review:</strong><ul>'+actions.map(action=>'<li>'+action+'</li>').join('')+'</ul>';
-    if(notice==='no') html+='<strong>Timing warning:</strong> New York controls when a credential series must be renewed. Confirm the current Tax Department notice or OSCAR account before submitting a renewal.';
+    if(notice==='no') html+='<strong>Timing warning:</strong> New York controls when a credential series must be renewed. Confirm the current renewal notice before placing a renewal order.';
     result.innerHTML=html;
   }
   </script>
-  <h2>Current state credential fee</h2><p>New York currently states that the HUT certificate-of-registration renewal fee is $1.50 per vehicle and includes both the new certificate and decal.</p>
+  <h2>What renewal processing covers</h2><p>Renewal starts with confirming the active fleet, removing vehicles that no longer belong, identifying account discrepancies, and ensuring the correct credential is issued. NYHUT.com provides current service pricing and ordering.</p>
   <h2>Renewal is not the correct action for every vehicle</h2>
-  <table><thead><tr><th>Vehicle situation</th><th>Action to review</th></tr></thead><tbody><tr><td>Active vehicle included in a required new credential series</td><td>Renewal</td></tr><tr><td>Plate information changed or weight increased</td><td>Revised credential</td></tr><tr><td>Certificate or decal lost, mutilated, or destroyed</td><td>Duplicate/replacement through OSCAR or Form TMT-334</td></tr><tr><td>Vehicle sold, transferred, junked, or permanently removed</td><td>Cancellation and required decal surrender</td></tr></tbody></table>
+  <table><thead><tr><th>Vehicle situation</th><th>Action to review</th></tr></thead><tbody><tr><td>Active vehicle included in a required new credential series</td><td>Renewal</td></tr><tr><td>Plate information changed or weight increased</td><td>Revised credential</td></tr><tr><td>Certificate or decal lost, mutilated, or destroyed</td><td>Duplicate or replacement credential processing</td></tr><tr><td>Vehicle sold, transferred, junked, or permanently removed</td><td>Cancellation and required decal surrender</td></tr></tbody></table>
   <h2>Account compliance still matters</h2><p>Outstanding HUT returns or tax can affect credential issuance, renewal, suspension, or revocation. Review the account status before assuming that payment of the credential fee completes the renewal.</p>`
 };
 
