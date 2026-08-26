@@ -1,9 +1,9 @@
 {
   "name": "compliance-university",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "build": "node build.mjs",
+    "build": "node build.mjs && node seo-extra.mjs && node validate.mjs",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
