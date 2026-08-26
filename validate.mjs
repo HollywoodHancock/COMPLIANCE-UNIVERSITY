@@ -31,6 +31,8 @@ for(const file of htmlFiles){
   if(/\$(?:1\.50|25)(?!\d)|\b1\.50 per vehicle\b/i.test(html)) errors.push(`${rel}: state-only credential price exposed`);
   if(/permit service compan(?:y|ies) may charge|additional service fee/i.test(html)) errors.push(`${rel}: state-versus-service price comparison detected`);
   if(/OSCAR[^<]{0,80}(?:order|obtain|buy|request)[^<]{0,40}credential|(?:use|visit|go to)[^<]{0,40}OSCAR/i.test(html)) errors.push(`${rel}: self-service OSCAR purchase path promoted`);
+  if(!html.includes('nyhut_order_click')) errors.push(`${rel}: missing NYHUT outbound analytics event`);
+  if(!html.includes('utm_content=')) errors.push(`${rel}: missing NYHUT attribution content`);
 }
 
 const homepage=await readFile(join(out,'index.html'),'utf8');
