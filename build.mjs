@@ -81,7 +81,36 @@ const pages = [
 
 const officialSources = `<ul><li><a href="https://www.tax.ny.gov/bus/hut/huidx.htm" rel="nofollow">New York State Department of Taxation and Finance — Highway Use Tax</a></li><li><a href="https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/hut/certificate_of_registration.htm" rel="nofollow">Tax Bulletin TB-HU-115 — Certificate of Registration</a></li><li><a href="https://www.tax.ny.gov/pubs_and_bulls/tg_bulletins/hut/cor_trip_certificate.htm" rel="nofollow">Tax Bulletin TB-HU-116 — Trip Certificate</a></li><li><a href="https://www.tax.ny.gov/forms/current-forms/motor/mt903i.htm" rel="nofollow">Form MT-903 Instructions</a></li></ul>`;
 
-function trackedOrderUrl(source='site'){return `${orderUrl}?utm_source=newyorkhut.com&utm_medium=referral&utm_campaign=compliance_university&utm_content=${source}`}
+const temporaryOrderSources = new Set([
+  'temporary-ny-hut-permit',
+  'ny-hut-trip-certificate-limits',
+  'temporary-vs-permanent-ny-hut-wizard',
+]);
+const replacementOrderSources = new Set([
+  'ny-hut-decal-replacement',
+  'ny-hut-certificate-and-decal',
+]);
+const permanentOrderSources = new Set([
+  'ny-hut-registration-guide',
+  'who-needs-ny-hut',
+  'ny-hut-weight-requirements',
+  'form-tmt-1-ny-hut',
+  'oscar-ny-hut-registration',
+  'ny-hut-out-of-state-carriers',
+  'ny-hut-registration-cost',
+  'ny-hut-leased-trucks',
+  'ny-hut-temporary-plates',
+  'ny-hut-canadian-carriers',
+  'ny-hut-gross-weight-calculator',
+]);
+function trackedOrderUrl(source='site'){
+  let destination = orderUrl;
+  if(temporaryOrderSources.has(source)) destination = `${orderUrl}/order?product=nyhut-temporary`;
+  else if(replacementOrderSources.has(source)) destination = `${orderUrl}/order?product=nyhut-replacement`;
+  else if(permanentOrderSources.has(source)) destination = `${orderUrl}/order?product=nyhut-new`;
+  const separator = destination.includes('?') ? '&' : '?';
+  return `${destination}${separator}utm_source=newyorkhut.com&utm_medium=referral&utm_campaign=compliance_university&utm_content=${source}`;
+}
 function seal(size='full'){return `<div class="seal ${size==='small'?'seal-small':''}"><span>CU<small>EST. 2026</small></span></div>`}
 function header(){return `<header><div class="nav"><a class="brand-lockup" href="/" aria-label="NewYorkHUT.com home"><img class="brand-logo" src="/newyorkhut-logo.png" width="46" height="50" alt="NewYorkHUT.com trucking shield logo"><span class="brand-copy"><span class="brand">NewYork<span>HUT</span>.com</span><span class="brand-sub">A Compliance University™ Resource</span></span></a><nav aria-label="Primary navigation"><a href="/what-is-new-york-highway-use-tax/">Learn</a><a href="/who-needs-ny-hut/">Requirements</a><a href="/ny-hut-registration-guide/">Registration</a><a href="/temporary-ny-hut-permit/">Temporary</a><a href="/ny-hut-quarterly-filing/">Filing</a><a href="/ny-hut-faq/">FAQ</a></nav><a class="cta" href="${trackedOrderUrl('header')}">Order at NYHUT.com →</a></div></header>`}
 function footer(){return `<footer><div class="footer-inner"><div><div class="footer-brand">${seal('small')}<div><strong>Compliance University™ · New York</strong><p>NewYorkHUT.com is the independent educational resource supporting the NYHUT.com ordering platform.</p></div></div></div><div><strong>Learning Center</strong><p><a href="/what-is-new-york-highway-use-tax/">NY HUT Guide</a><br><a href="/who-needs-ny-hut/">Who Needs HUT?</a><br><a href="/ny-hut-faq/">FAQ Library</a></p></div><div><strong>Take the next step</strong><p><a href="/ny-hut-eligibility-checker/">Eligibility Checker</a><br><a href="${trackedOrderUrl('footer')}">Order at NYHUT.com</a></p></div></div><div class="legal">Independent educational guidance—not a New York State agency. Requirements can depend on vehicle configuration, weight, use, exemptions, and current New York law or Tax Department guidance. Last reviewed ${updated}.</div></footer>`}

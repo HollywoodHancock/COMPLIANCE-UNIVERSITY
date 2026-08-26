@@ -51,6 +51,18 @@ const locs=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
 if(locs.length!==new Set(locs).size) errors.push('sitemap.xml: duplicate URLs');
 for(const loc of locs){ if(!loc.startsWith(site+'/')) errors.push(`sitemap.xml: non-NewYorkHUT URL ${loc}`); }
 
+const destinationChecks = [
+  ['temporary-ny-hut-permit/index.html', '/order?product=nyhut-temporary&'],
+  ['ny-hut-trip-certificate-limits/index.html', '/order?product=nyhut-temporary&'],
+  ['ny-hut-decal-replacement/index.html', '/order?product=nyhut-replacement&'],
+  ['ny-hut-registration-guide/index.html', '/order?product=nyhut-new&'],
+  ['ny-hut-gross-weight-calculator/index.html', '/order?product=nyhut-new&'],
+];
+for(const [file, expected] of destinationChecks){
+  const html=await readFile(join(out,file),'utf8');
+  if(!html.includes(`https://nyhut.com${expected}`)) errors.push(`${file}: missing contextual NYHUT destination ${expected}`);
+}
+
 if(errors.length){
   console.error(`Validation failed (${errors.length})`);
   for(const e of errors) console.error(`- ${e}`);
