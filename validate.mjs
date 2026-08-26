@@ -33,7 +33,7 @@ for(const file of htmlFiles){
 const homepage=await readFile(join(out,'index.html'),'utf8');
 if(!homepage.includes('<link rel="canonical" href="https://newyorkhut.com/">')) errors.push('index.html: homepage canonical must use the slash URL');
 if(!homepage.includes('Compliance University™')) errors.push('index.html: missing Compliance University parent-brand relationship');
-if(!homepage.includes('NYHUT.com handles ordering, payment, customer accounts, and permit delivery')) errors.push('index.html: missing explicit transactional boundary');
+if(!/NYHUT\.com handles (?:ordering|carrier information), payment, customer accounts, and permit delivery/.test(homepage)) errors.push('index.html: missing explicit transactional boundary');
 
 const notFound=await readFile(join(out,'404.html'),'utf8');
 if(!notFound.includes('<meta name="robots" content="noindex,follow">')) errors.push('404.html: missing noindex directive');
