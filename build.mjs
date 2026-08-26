@@ -102,6 +102,7 @@ const permanentOrderSources = new Set([
   'ny-hut-temporary-plates',
   'ny-hut-canadian-carriers',
   'ny-hut-gross-weight-calculator',
+  'ny-hut-apportioned-vehicles',
 ]);
 function trackedOrderUrl(source='site'){
   let destination = orderUrl;

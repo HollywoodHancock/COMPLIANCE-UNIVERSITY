@@ -57,10 +57,23 @@ const destinationChecks = [
   ['ny-hut-decal-replacement/index.html', '/order?product=nyhut-replacement&'],
   ['ny-hut-registration-guide/index.html', '/order?product=nyhut-new&'],
   ['ny-hut-gross-weight-calculator/index.html', '/order?product=nyhut-new&'],
+  ['ny-hut-apportioned-vehicles/index.html', '/order?product=nyhut-new&'],
 ];
 for(const [file, expected] of destinationChecks){
   const html=await readFile(join(out,file),'utf8');
   if(!html.includes(`https://nyhut.com${expected}`)) errors.push(`${file}: missing contextual NYHUT destination ${expected}`);
+}
+
+for(const page of [
+  'ny-hut-mileage-record-requirements',
+  'ny-hut-account-closure',
+  'ny-hut-certificate-cancellation',
+  'ny-hut-filing-frequency-changes',
+  'ny-hut-apportioned-vehicles',
+]){
+  const file = join(out,page,'index.html');
+  if(!htmlFiles.includes(file)) errors.push(`${page}: missing third-wave authority page`);
+  if(!locs.includes(`${site}/${page}/`)) errors.push(`${page}: missing sitemap URL`);
 }
 
 if(errors.length){

@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { renderArticle } from './seo-wave2.mjs';
+import { renderArticle } from './seo-wave3.mjs';
 
 const out = 'dist';
 const site = 'https://newyorkhut.com';
